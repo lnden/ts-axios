@@ -1,48 +1,74 @@
-import axios, { AxiosError } from '../../src/index';
+import axios  from '../../src/index';
 
-// url故意写错404
 axios({
-  url: '/error/get1',
-  method: 'get',
-}).then((res) => {
-  console.log(res);
-}).catch((e) => {
-  console.log(e);
+  url: '/extend/post',
+  method: 'post',
+  data: {
+    msg: 'hi'
+  }
 });
 
-// 有一定几率是500错误
-axios({
-  url: '/error/get',
-  method: 'get',
-}).then((res) => {
-  console.log(res);
-}).catch((e) => {
-  console.log(e);
+axios.request({
+  url: '/extend/post',
+  method: 'post',
+  data: {
+    msg: 'hello'
+  }
 });
 
-// 延时5秒模拟网络错误,需要手动关闭network网络
-setTimeout(() => {
-  axios({
-    url: '/error/get',
-    method: 'get',
-  }).then((res) => {
-    console.log(res);
-  }).catch((e) => {
-    console.log(e);
-  });
-}, 5000);
+axios.get('/extend/get');
 
-// 模拟超时
+axios.delete('/extend/delete');
+
+axios.head('/extend/head');
+
+axios.options('/extend/options');
+
+axios.post('/extend/post', { msg: 'post'});
+
+axios.put('/extend/put', { msg: 'put'});
+
+axios.patch('/extend/patch', { msg: 'patch'});
+
+// 函数重载实现
 axios({
-  url: '/error/timeout',
-  method: 'get',
-  timeout: 2000
-}).then((res) => {
-  console.log(res);
-}).catch((e: AxiosError) => {
-  console.log(1,e.message);
-  console.log(2,e.config);
-  console.log(3,e.code);
-  console.log(4,e.request);
-  console.log(5,e.isAxiosError);
+  url: '/extend/post',
+  method: 'post',
+  data: {
+    msg: 'hi'
+  }
 });
+
+axios('/extend/post', {
+  method: 'post',
+  data: {
+    msg: 'hello'
+  }
+});
+
+
+interface ResponseData<T=any> {
+  code: number
+  result: T,
+  message: string
+}
+
+interface User {
+  name: string
+  age: number
+}
+
+function getUser<T>() {
+  return axios<ResponseData<T>>('/extend/user')
+    .then(res => res.data)
+    .catch(err => console.log(err));
+}
+
+async function test() {
+  console.log('准备发送请求');
+  const user = await getUser<User>();
+  if (user) {
+    console.log(user.result.name);
+  }
+}
+test();
