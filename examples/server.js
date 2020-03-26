@@ -29,6 +29,7 @@ registerSimpleRouter();
 registerBaseRouter();
 registerErrorRouter();
 registerExtendRouter();
+registerInterceptorRouter();
 
 app.use(router);
 
@@ -36,8 +37,6 @@ const port = process.env.PORT || 9527;
 module.exports = app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}, Ctrl + C to stop!`)
 });
-
-
 
 function registerSimpleRouter() {
   router.get('/simple/get', function(req, res) {
@@ -132,4 +131,10 @@ function registerExtendRouter() {
       }
     })
   })
+}
+
+function registerInterceptorRouter() {
+  router.get('/interceptor/get', function(req, res) {
+    res.json('hello');
+  });
 }
