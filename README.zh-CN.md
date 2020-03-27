@@ -30,12 +30,12 @@ git push origin master
 2. 编写 `node server` 前端服务并且添加前端路由
 
 
-## 功能列表
+## Axios文档
 
-### 处理请求url参数， 实现url参数处理逻辑
+```shell script
+git clone https://github.com/lnden/ts-axios.git && cd docs
 
-1. 如果 `params` 不存在直接返回 `url`
-2. 如果存在遍历对象，如果 `value` 直为 `null` 或者 `undefined` 直接返回 `url`
-3. 如果 `value` 值存在且不为空统一把处理为数组
-4. 遍历处理好的 `values` 值,如果是时间对象转换为 `toISOString`,如果是对象直接 `JSON.stringify`，最后把值 `push` 到新数组中。
-5. 把新数组中的值，以 `&` 链接成字符串，判断时候有 `#` 和 `?`做出优化处理
+yarn install || npm install
+
+yarn dev || npm run dev
+```
