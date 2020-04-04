@@ -202,4 +202,12 @@ function registerMoreRouter() {
     res.status(304);
     res.end();
   })
+
+  router.get('/more/A', (req, res) => {
+    res.end('A');
+  })
+
+  router.get('/more/B', (req, res) => {
+    res.end('B')
+  })
 }

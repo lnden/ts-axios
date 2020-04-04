@@ -33,7 +33,7 @@ export interface AxiosRequestConfig {
   auth?: AxiosBasicCredentials
   validateStatus?: (status: number) => boolean
   paramsSerializer?: (params: any) => string
-  baseURl?: string
+  baseURL?: string
 
   [propName: string]: any // 字符串索引签名
 }
@@ -75,6 +75,7 @@ export interface Axios {
   post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
   put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
   patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
+  getUri(config?: AxiosRequestConfig): string
 }
 
 // 混合类型接口
@@ -102,11 +103,18 @@ export interface AxiosTransformer {
   (data: any, headers?: any): any
 }
 
+export interface AxiosClassStatic {
+  new (config: AxiosRequestConfig): Axios
+}
+
 export interface AxiosStatic extends AxisoInstance {
   create(config?: AxiosRequestConfig): AxisoInstance
   CancelToken: CancelTokenStatic
   Cancel: CancelStatic
   isCancel: (value: any) => boolean
+  all<T>(promise: Array<T | Promise<T>>): Promise<T[]>
+  spredd<T, R>(callback: (...args: T[]) => R): (arr: T[]) => R
+  Axios: AxiosClassStatic
 }
 
 export interface CancelToken {

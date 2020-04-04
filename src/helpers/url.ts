@@ -101,7 +101,7 @@ export function isAbsoluteURL(url: string): boolean {
   return /(^[a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
 }
 
-// baseURl 和 URL 做一个拼接
+// baseURL 和 URL 做一个拼接
 export function combineURL(baseURL: string, relativeURL?: string): string {
   return relativeURL ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') : baseURL
 }
