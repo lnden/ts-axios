@@ -98,7 +98,7 @@ function resolveURL(url: string): URLOrigin {
 // 判断URL是否是绝对地址
 export function isAbsoluteURL(url: string): boolean {
   // 返回true是绝对路径，返回false是相对路径
-  return /(^[a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
 }
 
 // baseURL 和 URL 做一个拼接
