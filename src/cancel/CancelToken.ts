@@ -29,7 +29,7 @@ export default class CancelToken {
     }
   }
 
-  static souce(): CancelTokenSource {
+  static source(): CancelTokenSource {
     let cancel!: Canceler
     const token = new CancelToken(c => {
       cancel = c
