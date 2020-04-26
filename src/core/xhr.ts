@@ -5,20 +5,12 @@ import { isURLSameOrigin } from '../helpers/url'
 import { isFormData } from '../helpers/util'
 import cookie from '../helpers/cookie'
 
-/**
- * @feature xhr
- * 1.创建一个xhr实例
- * 2.配置一些request对象
- * 3.监听事件
- * 4.处理headers
- * 5.处理cancelToken相关逻辑
- */
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
     const {
       data = null,
       url,
-      method = 'get',
+      method,
       headers = {},
       responseType,
       timeout,
@@ -34,7 +26,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     const request = new XMLHttpRequest()
 
-    request.open(method.toUpperCase(), url!, true)
+    request.open(method!.toUpperCase(), url!, true)
 
     configRequest()
 
@@ -71,7 +63,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         }
 
         const responseHeaders = parseHeaders(request.getAllResponseHeaders())
-        const responseData = responseType !== 'text' ? request.response : request.responseText
+        const responseData =
+          responseType && responseType !== 'text' ? request.response : request.responseText
         const response: AxiosResponse = {
           data: responseData,
           status: request.status,
@@ -166,3 +159,12 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     }
   })
 }
+
+/**
+ * @feature xhr
+ * 1.创建一个xhr实例
+ * 2.配置一些request对象
+ * 3.监听事件
+ * 4.处理headers
+ * 5.处理cancelToken相关逻辑
+ */
